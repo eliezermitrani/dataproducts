@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Levenshtein Tree</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The Levenshtein Tree">
+  <meta name="author" content="Eliezer Mitrani">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>The Levenshtein Tree</h1>
+    <h2>A distance cluster tool</h2>
+    <p>Eliezer Mitrani<br/>Product Developer</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This application let you classify a list of string based in the string distance between character vectors. The distance is a generalized Levenshtein (edit) distance, giving the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another.</p>
+
+<ul>
+<li>ShinyApp: <a href="https://eliezermitrani.shinyapps.io/levenshteintree/">https://eliezermitrani.shinyapps.io/levenshteintree/</a></li>
+<li>GitHub repo: </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What is the Levenshtein distance</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other. It is named after Vladimir Levenshtein, who considered this distance in 1965.[1]</p>
+
+<p>For example, the Levenshtein distance between &quot;casa&quot; and &quot;calle&quot; is 3, because we need 3 edits to convert the first word in the second.</p>
+
+<pre><code>1. casa -&gt; cala (replace the &#39;s&#39; for &#39;l&#39;)
+2. cala -&gt; calla (insert an &#39;l&#39; between &#39;l&#39; and &#39;a&#39;)
+3. calla -&gt; calle (replace the &#39;a&#39; for &#39;e&#39;)
+</code></pre>
+
+<p>[1] <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How The Levenshtein Tree works</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This application is very simple. You must follow 3 steps to get your clustered tree.</p>
+
+<div style='text-align: center;'>
+    <img height='250' src='assets/img/screenshot.png' />
+</div>
+
+<ol>
+<li>Load your data: You can load any plain text format (.csv, .txt, etc.).</li>
+<li>This file must have all the string that you want to compare.</li>
+<li>Select the number of rows to read.</li>
+<li>See your results.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>continue</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Once you load your data, we use the package <code>adist</code> to calculate the distance between each string in a matrix with the Levenshtein algorithm.</p>
+
+<pre><code>dir &lt;- read.csv(inFile$datapath, header=FALSE, sep=&quot;,&quot;, quote=&quot;&quot;, nrows=input$nrow)
+d  &lt;- adist(dir$V1)
+</code></pre>
+
+<p>This vector of distances is clustered with the Hirarchical Clustering package <code>hclust</code>.</p>
+
+<pre><code>hc$labels &lt;- dir$V1
+hc &lt;- hclust(as.dist(d))
+</code></pre>
+
+<p>Finally, we construct our supersexy tree!. I highly recommend you the &quot;ape&quot; package, it&#39;s beautiful. Also, we assign the &quot;topo.colors&quot; palette to each cluster.</p>
+
+<pre><code>colors = topo.colors(max(d))
+clus4 = cutree(hc, max(d))
+plot(as.phylo(hc), type = &quot;fan&quot;, tip.color = colors[clus4], no.margin = TRUE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>continue</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Finally, in the second tab we show the loaded datatable with their cluster.</p></li>
+<li><p>Notice that once you load your data, you can change the number of rows, the plot and the datatable will change dynamically.</p>
+
+<div style='text-align: center;'>
+<img height='300' src='assets/img/tree.png' />
+<img height='300' src='assets/img/table.png' />
+</div></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Application and conclussion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Edit distance finds applications in computational biology and natural language processing, e.g. the correction of spelling mistakes or OCR errors, and approximate string matching, where the objective is to find matches for short strings in many longer texts, in situations where a small number of differences is to be expected.</li>
+<li>We can improve our application, adding more string comparisong algorithms, like Hirschberg&#39;s, Qgrams, Soundex, etc.
+<div style='text-align: center;'>
+<img height='250' src='assets/img/countries.png' />
+<img height='250' src='assets/img/work.png' />
+<img height='250' src='assets/img/tree.png' />
+</div></li>
+<li>We can improve our application, adding more string comparisong algorithms, like Hirschberg&#39;s, Qgrams, Soundex, etc.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Overview'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is the Levenshtein distance'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='How The Levenshtein Tree works'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='continue'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='continue'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Application and conclussion'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
