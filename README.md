@@ -7,4 +7,9 @@ This application let you classify a list of string based in the string distance 
 - GitHub repo: https://github.com/eliezermitrani/dataproducts/
 - Slidify Presentation: http://eliezermitrani.github.io/dataproducts/index.html
 
+Also, you will need some CSV samples.
+- Names: https://raw.githubusercontent.com/eliezermitrani/dataproducts/master/names.csv
+- Countries: https://raw.githubusercontent.com/eliezermitrani/dataproducts/master/countries.csv
+- Animals: https://raw.githubusercontent.com/eliezermitrani/dataproducts/master/animals.csv
+
 Welcome and have fun! 
