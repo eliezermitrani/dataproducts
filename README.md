@@ -5,5 +5,6 @@ This application let you classify a list of string based in the string distance 
 
 - ShinyApp: https://eliezermitrani.shinyapps.io/levenshteintree/
 - GitHub repo: https://github.com/eliezermitrani/dataproducts/
+- The Shiny Presentation: http://eliezermitrani.github.io/dataproducts/index.html
 
 Welcome and have fun! 
