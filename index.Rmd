@@ -9,9 +9,7 @@ hitheme     : tomorrow      #
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
-url:
-  lib: ../libraries
-  assets: ../assets
+
 ---
 
 ## Overview
