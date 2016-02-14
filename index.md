@@ -3,15 +3,15 @@ title       : The Levenshtein Tree
 subtitle    : A distance cluster tool
 author      : Eliezer Mitrani
 job         : Product Developer
-framework   : deck        # {io2012, html5slides, shower, dzslides, ...}
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 url:
-  lib: ../../libraries
-  assets: ../../assets
+  lib: ../libraries
+  assets: ../assets
 ---
 
 ## Overview
