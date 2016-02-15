@@ -48,30 +48,15 @@
   <article data-timings="">
     <p>This application let you classify a list of string based in the string distance between character vectors. The distance is a generalized Levenshtein (edit) distance, giving the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another.</p>
 
-<ul>
-<li>ShinyApp: <a href="https://eliezermitrani.shinyapps.io/levenshteintree/">https://eliezermitrani.shinyapps.io/levenshteintree/</a></li>
-<li>GitHub repo: <a href="https://github.com/eliezermitrani/dataproducts">https://github.com/eliezermitrani/dataproducts</a></li>
-</ul>
+<h2>What is the Levenshtein distance</h2>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>What is the Levenshtein distance</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>The Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other. It is named after Vladimir Levenshtein, who considered this distance in 1965.[1]</p>
-
-<p>For example, the Levenshtein distance between &quot;casa&quot; and &quot;calle&quot; is 3, because we need 3 edits to convert the first word in the second.</p>
+<p>The Levenshtein distance is a string metric for measuring the difference between two sequences. Informally, the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other. <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a>
+For example, the Levenshtein distance between &quot;casa&quot; and &quot;calle&quot; is 3, because we need 3 edits to convert the first word in the second.</p>
 
 <pre><code>1. casa -&gt; cala (replace the &#39;s&#39; for &#39;l&#39;)
 2. cala -&gt; calla (insert an &#39;l&#39; between &#39;l&#39; and &#39;a&#39;)
 3. calla -&gt; calle (replace the &#39;a&#39; for &#39;e&#39;)
 </code></pre>
-
-<p>[1] <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -129,25 +114,6 @@ plot(as.phylo(hc), type = &quot;fan&quot;, tip.color = colors[clus4], no.margin 
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>continue</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>Finally, in the second tab we show the loaded datatable with their cluster.</p></li>
-<li><p>Notice that once you load your data, you can change the number of rows, the plot and the datatable will change dynamically.</p>
-
-<div style='text-align: center;'>
-<img height='300' src='assets/img/tree.png' />
-<img height='300' src='assets/img/table.png' />
-</div></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="class" id="id" style="background:;">
-  <hgroup>
     <h2>Application and conclussion</h2>
   </hgroup>
   <article data-timings="">
@@ -178,32 +144,20 @@ plot(as.phylo(hc), type = &quot;fan&quot;, tip.color = colors[clus4], no.margin 
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='What is the Levenshtein distance'>
+        data-slide=2 title='How The Levenshtein Tree works'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='How The Levenshtein Tree works'>
+        data-slide=3 title='continue'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='continue'>
+        data-slide=4 title='Application and conclussion'>
          4
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='continue'>
-         5
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Application and conclussion'>
-         6
       </a>
     </li>
   </ul>
